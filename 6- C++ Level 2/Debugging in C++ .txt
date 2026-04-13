@@ -1,0 +1,11 @@
+1- Breaking Points [ left hand side of VS Community make a break point to stop the code as this point ]
+
+	we can make multiple break points and we can move between them directly using F5
+
+2- Autos Window [ its found in the bottom of the IDE and we can track every variable with it [ it shows every thing ] 
+
+
+3- Quick watch window [ We can explore any expression with it like Autos but we choose which expression by our selves 
+
+	[ We can Access it by highlighting the expression and press ( Shift+F9 )
+
