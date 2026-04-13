@@ -9,3 +9,14 @@
 
 	[ We can Access it by highlighting the expression and press ( Shift+F9 )
 
+4- We can change Values in Debugging mode by only toggling the variable and a small window will appear beside it and we can change its value to check any possible solution or to debug the code effectively .
+
+ 					we also can change the variable value in Autos window 
+
+							[ We can use any method ]
+
+5- We can use Step Into/Over/out from Debug drop down list 
+
+F11 --> Step Into [ step by step debugging ]
+F10 --> Step over [ get over certain function or a line of code you are actually know its right and no need to debug to save time ]
+Shift+F11 -- > Step out [ If you are in a specific function and you want to execute it and continue in debugging the rest of the code]
