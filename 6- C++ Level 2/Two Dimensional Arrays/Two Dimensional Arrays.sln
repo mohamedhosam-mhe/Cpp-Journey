@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36310.24 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Two Dimensional Arrays", "Two Dimensional Arrays.vcxproj", "{0DB78B2C-66BE-42C2-9413-C0CD9B254FAA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0DB78B2C-66BE-42C2-9413-C0CD9B254FAA}.Debug|x64.ActiveCfg = Debug|x64
+		{0DB78B2C-66BE-42C2-9413-C0CD9B254FAA}.Debug|x64.Build.0 = Debug|x64
+		{0DB78B2C-66BE-42C2-9413-C0CD9B254FAA}.Debug|x86.ActiveCfg = Debug|Win32
+		{0DB78B2C-66BE-42C2-9413-C0CD9B254FAA}.Debug|x86.Build.0 = Debug|Win32
+		{0DB78B2C-66BE-42C2-9413-C0CD9B254FAA}.Release|x64.ActiveCfg = Release|x64
+		{0DB78B2C-66BE-42C2-9413-C0CD9B254FAA}.Release|x64.Build.0 = Release|x64
+		{0DB78B2C-66BE-42C2-9413-C0CD9B254FAA}.Release|x86.ActiveCfg = Release|Win32
+		{0DB78B2C-66BE-42C2-9413-C0CD9B254FAA}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {76810D6E-5C93-4063-8E23-1CA01563D9AA}
+	EndGlobalSection
+EndGlobal
