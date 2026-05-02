@@ -278,7 +278,10 @@ vector <string> SplitFunctionWithDelimeter(string YourString, string Delim = " "
 // Problem 38 [ Trim function  left and right and trim all --> remove spaces from write and left the string ] 
 
 
-string TrimLeft(string &MyString) {
+
+
+
+string TrimLeft(string MyString) {
 
 	short pos = 0;
 
@@ -294,29 +297,78 @@ string TrimLeft(string &MyString) {
 
 
 
-string TrimRight(string& MyString) {
+string TrimRight(string MyString) {
 
 	short pos = MyString.size()-1;
 
-	while (pos > 0 && MyString[pos] == ' ') {
+	while (pos >= 0 && MyString[pos] == ' ') {
 
 		pos--;
 	}
 
-	MyString.erase(pos+1, MyString.size() - 1);
+	MyString.erase(pos+1);// This will erase from this position to end 
 
 
 	return MyString;
 }
 
 
-string Trim(string& MyString) {
+string Trim(string MyString) {
 
-	TrimLeft(MyString);
-	TrimRight(MyString);
-
-	return MyString;
+	return TrimRight(TrimLeft(MyString));
 }
+
+// we can also make it using for since we have the length of the string and we will use if to check if the space is ' ' or not and subtract all string left, left we will start normal, right we will start revers 
+
+
+
+
+
+
+
+
+
+
+// Problem 39 [ Join String ] 
+
+string JoinString(vector <string> Names,string Delim) {
+
+	string S1 = " ";
+
+	for (string& i : Names) {
+
+
+		S1 = S1 + i + Delim;
+		
+	}
+
+	return S1.substr(0, S1.length() - Delim.length());
+}
+
+
+
+
+
+// Problem 40 [ Join String (overloading) ] --> we will make  the same function name as the previous but with array and length 
+// One Name for alot of functions called {Overloading}
+
+
+string JoinString(string Names[], short ArrLength, string Delim) {
+
+	string S1 = "";
+
+	for (int i = 0; i < ArrLength; i++) {
+
+		S1 = S1 + Names[i] + Delim;
+	}
+
+	return S1.substr(0, S1.length() - Delim.length());
+}
+
+
+
+
+
 
 
 
@@ -417,7 +469,38 @@ int main()
 	cout << "My String = " << MyString << endl;
 	cout << "Trim Left\t=" << TrimLeft(MyString) << endl;
 	cout << "Trim Right\t=" << TrimRight(MyString) << endl;
-	cout << "Trim\t=" << Trim(MyString);
+	cout << "Trim\t=" << Trim(MyString) << endl;
+
+
+	cout << "\n*****************************************************************\n\n\n";
+
+
+	// Problem 39 
+	cout << "This is string joining using vector : \n";
+
+	vector <string> Names = { "Mohamed", "Hosam", "Yousef", "Hosam", "Ibrahim" };
+
+	cout << JoinString(Names, ",") << endl;
+
+
+	cout << "\n*****************************************************************\n\n\n";
+
+
+	// Problem 40 
+
+	cout << "This is string joining using arrays : \n";
+	string ArrNames[] = { "Mohamed", "Hosam", "Yousef", "Hosam", "Ibrahim" };
+
+
+	cout << JoinString(ArrNames, 5, "-") << endl;
+
+
+
+
+
+
+
+
 
 
 
