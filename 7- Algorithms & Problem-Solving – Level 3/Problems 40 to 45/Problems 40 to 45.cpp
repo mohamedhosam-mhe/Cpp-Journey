@@ -4,11 +4,13 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <iomanip>
+#include <fstream>
 using namespace std;
 
 
 
-
+const string FileName = "ClientsData.txt";
 
 // Problem 41 [ Pogram to read string and reverse its words ] 
 
@@ -239,7 +241,6 @@ struct stClient {
 
 stClient FillClientInformation(stClient& Client) {
 
-	cout << "Please Enter Client Data : \n\n";
 
 
 	cout << "Enter Account Number?  ";
@@ -273,6 +274,157 @@ string ConvertRecordToLine(stClient Client, string Delim) {
 
 }
 
+
+
+// Problem 46 [ Opposite last problem, Now convert one line data to record ]
+
+
+stClient LineDataToRecord(string LineData, string Delim) {
+
+	stClient ClientData;
+	
+
+	ClientData.AccNumber = LineData.substr(0, LineData.find(Delim));
+	LineData.erase(0, LineData.find(Delim) + Delim.length());
+	ClientData.Pin = LineData.substr(0, LineData.find(Delim));
+	LineData.erase(0, LineData.find(Delim) + Delim.length());
+	ClientData.Name = LineData.substr(0, LineData.find(Delim));
+	LineData.erase(0, LineData.find(Delim) + Delim.length());
+	ClientData.phone = LineData.substr(0, LineData.find(Delim));
+	LineData.erase(0, LineData.find(Delim) + Delim.length());
+	ClientData.Balance = stod(LineData.substr(0, LineData.find(Delim)));
+
+	return ClientData;
+
+	// we can also make a vector and use splitStringWords function to store words in the vector and after this assign it to structure using indexing [0] [1]
+
+}
+
+
+void PrintClientData(stClient ClientData) {
+
+
+	cout << "Account Number :" << ClientData.AccNumber << endl;
+	cout << "Pin Code       :" << ClientData.Pin << endl;
+	cout << "Name           :" << ClientData.Name << endl;
+	cout << "Phone          :" << ClientData.phone << endl;
+	cout << "Account Balance:" << ClientData.Balance << endl;
+
+}
+
+
+
+// Problem 47 [ Ask user to enter clients and save them to file ]
+
+
+void SaveStringInFile(string FileName,string Data) {
+
+	fstream MyFile;
+
+	MyFile.open(FileName , ios::out | ios::app);
+
+	if (MyFile.is_open()) {
+
+		MyFile << Data << endl;
+
+	}
+
+	MyFile.close();
+
+	
+}
+
+void AddNewClient() {
+
+	stClient Client;
+	FillClientInformation(Client);
+	SaveStringInFile(FileName,ConvertRecordToLine(Client, "#//#"));
+
+}
+
+void AddClients() {
+
+
+	char ContinueAdding = 'Y';
+	do {
+		system("cls");
+		cout << "\n\nAdding New Client : \n\n\n";
+		AddNewClient();
+		cout << "\n\nClient Added Successfully, do you want to add more clients? Y/N      ";
+		cin >> ContinueAdding;
+
+	} while (toupper(ContinueAdding) == 'Y');
+	
+
+}
+
+
+
+
+// Problem 48 [ Read Clients from file and show them on screen ]
+
+
+vector <stClient> SaveClientDataFromFileToVector(string FileName) {
+
+	vector <stClient> ClientsList;
+	stClient Client;
+
+	fstream MyFile;
+
+	MyFile.open(FileName, ios::in);
+
+	if (MyFile.is_open()) {
+
+		string Line;
+
+		while (getline(MyFile, Line)) {
+
+			Client = LineDataToRecord(Line, "#//#");
+			ClientsList.push_back(Client);
+		}
+
+		MyFile.close();
+	}
+
+	return ClientsList;
+}
+
+void Header() {
+
+	cout << "---------------------------------------------------------------------------------------------\n";
+	cout << left;
+	cout << setw(20) << "| Account Number" << setw(15) << "| Pin Code" << setw(30) << "| Client Name" << setw(15) << "| Phone" << setw(15) << "| Balance" << endl;
+	cout << "---------------------------------------------------------------------------------------------\n";
+
+}
+
+void PrintOneClient(stClient Client) {
+	cout << left;
+	cout << setw(20) << ("|" + Client.AccNumber) << setw(15) << ("|" + Client.Pin)
+		<< setw(30) << ("|" + Client.Name) << setw(15) << ("|" + Client.phone) <<"|"<< setw(15) << Client.Balance << endl;
+
+}
+
+void PrintClientsList() {
+
+	vector <stClient> ClientsList = SaveClientDataFromFileToVector(FileName);
+
+	cout << "\t\t\t\t Client List (" << ClientsList.size() << ") Client (s)." << endl;
+	Header();
+	
+	for (stClient& Client : ClientsList) {
+
+		PrintOneClient(Client);
+	}
+
+	cout << "---------------------------------------------------------------------------------------------\n";
+
+
+}
+
+
+
+// Problem 49 [ Find client by account number ] 
 
 
 
@@ -371,12 +523,49 @@ int main()
 	 stClient Client1;
 
 
+	 cout << "Please Enter Client Data : \n\n";
 
 	 Client1 = FillClientInformation(Client1);
 
-
+	 string ClientRecord = ConvertRecordToLine(Client1, "#//#");
 	 cout << "\n\n\n\nClient Record for saving is : \n";
 	 cout << ConvertRecordToLine(Client1, "#//#") << endl;
+
+	 cout << "\n\n*****************************************************************************\n\n\n";
+
+
+	 // Problem 46
+
+	 
+
+
+	 PrintClientData(LineDataToRecord(ClientRecord, "#//#"));
+
+	 cout << "\n\n*****************************************************************************\n\n\n";
+
+
+	 // Problem 47 
+
+
+
+	 AddClients();
+
+
+
+
+	 // Problem 48
+
+
+	 PrintClientsList();
+
+
+
+
+	 // Problem 49
+
+
+
+
 
 
 
