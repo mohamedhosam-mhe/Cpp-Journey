@@ -438,6 +438,7 @@ string ReadClientAccountNumber() {
 bool CheckAccountAvailable(string AccountNumber, stClient &Client) {
 
 	vector <stClient> Clients = SaveClientDataFromFileToVector("ClientsData.txt");
+
 	for (stClient& C : Clients) {
 
 		if (C.AccNumber == AccountNumber) {
@@ -453,106 +454,6 @@ bool CheckAccountAvailable(string AccountNumber, stClient &Client) {
 
 
 
-
-// Problem 50 [ Deleting Account by account number ]
-
-
-vector <string> SaveFileLinesToVector(string FileName) {
-
-	vector <string> Data;
-
-	fstream MyFile;
-
-	MyFile.open(FileName, ios::in);
-
-	if (MyFile.is_open()) {
-
-		string Line;
-		while (getline(MyFile, Line)) {
-
-			Data.push_back(Line);
-		}
-
-		MyFile.close();
-
-	}
-
-	return Data;
-
-}
-
-
-void SaveVectorDataStringToFile(string FileName, vector<string> Data) {
-
-	fstream MyFile;
-
-	MyFile.open(FileName, ios::out);
-
-	if (MyFile.is_open()) {
-
-		for (string Line : Data) {
-
-			MyFile << Line << endl;
-		}
-
-		MyFile.close();
-	}
-}
-
-
-
-// we will use last functions 
-
-vector <string> SaveClientDataFromFileToVectorString(string FileName) {
-
-	vector <string> Clients;
-
-	fstream MyFile;
-
-	MyFile.open(FileName, ios::in);
-
-	if (MyFile.is_open()) {
-
-		string Line;
-
-		while (getline(MyFile, Line)) {
-
-		
-			Clients.push_back(Line);
-		}
-
-		MyFile.close();
-	}
-
-	return Clients;
-}
-
-void DeleteClientsData(stClient Client) {
-
-	char Delete;
-
-	cout << "\n\nAre you sure you want to delete this client? y/n ? ";
-	cin >> Delete;
-
-	if (toupper(Delete) == 'Y') {
-
-		vector <string> Data = SaveClientDataFromFileToVectorString(FileName);
-
-		for (string& L : Data) {
-
-			if (L == ConvertRecordToLine(Client)) {
-
-				L = "";
-			}
-
-		}
-
-		SaveVectorDataStringToFile(FileName, Data);
-		cout << "\n\nClient deleted successfully.\n\n";
-
-	}
-
-}
 
 
 
@@ -711,32 +612,10 @@ int main()
 	 // Problem 50
 
 
+	 vector <stNewClients> vClients = SaveFileLinesToVector(FileName);
 
 
-
-	 stClient DeletedClient;
-	 string AccountNumberToDelete = ReadClientAccountNumber();
-
-	 if (CheckAccountAvailable(AccountNumberToDelete, DeletedClient)) {
-
-		 cout << "\n\nThe following are Client details : \n\n" << endl;
-		 PrintClientData(DeletedClient);
-
-		 DeleteClientsData(DeletedClient);
-	 }
-	 else {
-
-		 cout << "\nClient with account number (" << AccountNumberToDelete << ") is not found!\n\n";
-	 }
-
-	 cout << "\n\n*****************************************************************************\n\n\n";
-
-
-	 PrintClientsList();// to check if the client deleted or not 
-
-
-
-
+	 
 
 }
 
