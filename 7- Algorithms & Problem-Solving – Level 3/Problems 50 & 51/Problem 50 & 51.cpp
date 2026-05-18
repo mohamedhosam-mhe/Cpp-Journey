@@ -95,7 +95,7 @@ vector <stNewClients> SaveClientsToVector(string FileName) {
 
 }
 
-vector <stNewClients> SaveClientsToFile(string FileName, vector <stNewClients> vClients) {
+vector <stNewClients> SaveClientsToFileAfterDeleting(string FileName, vector <stNewClients> vClients) {
 
 	fstream MyFile;
 	string DataLine;
@@ -180,7 +180,7 @@ bool DeleteClientByAccountNumber(string AccountNumber, vector <stNewClients>& vC
 		if (toupper(Answer) == 'Y') {
 
 			MarkClientForDeleteByAccountNumber(AccountNumber, vClients);
-			SaveClientsToFile(FileName, vClients);
+			SaveClientsToFileAfterDeleting(FileName, vClients);
 
 
 			// Now we will Refresh the vector with the new list [ without deleted accounts ]
@@ -210,7 +210,113 @@ bool DeleteClientByAccountNumber(string AccountNumber, vector <stNewClients>& vC
 
 
 
-// Problem 51 [ 
+// Problem 51 [ Update Client by account Number ] 
+
+string ReadString(string Message) {
+
+	string Anything;
+
+	cout << Message;
+	getline(cin, Anything);
+
+	return Anything;
+}
+
+stNewClients ChangeClientData( stNewClients &Client) {
+
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+	Client.Pin = ReadString("\nEnter PinCode?     ");
+	Client.Name = ReadString("\nEnter Name?     ");
+	Client.phone = ReadString("\nEnter Phone?     ");
+	Client.Balance = stod(ReadString("\nEnter Balance?     "));
+
+	return Client;
+
+}
+
+
+bool UpdateVectorWithNewClientInformation(string AccountNumber, vector <stNewClients>& vClients, stNewClients Client) {
+
+
+	for (stNewClients& C : vClients) {
+
+		if (C.AccNumber == AccountNumber) {
+
+			C = Client;
+			return true;
+		}
+	}
+
+	return false;
+}
+
+vector <stNewClients> SaveClientsToFile(string FileName, vector <stNewClients> vClients) {
+
+	fstream MyFile;
+	string DataLine;
+
+	MyFile.open(FileName, ios::out);
+
+	if (MyFile.is_open()) {
+
+		for (stNewClients& C : vClients) {
+			
+			DataLine = ConvertRecordToLine(C);
+
+			MyFile << DataLine << endl;
+
+		}
+
+		MyFile.close();
+	}
+
+	return vClients;
+}
+
+
+bool UpdateClientDataByAccountNumber(string AccountNumber, vector <stNewClients> &vClients) {
+
+	stNewClients Client;
+	char Answer = 'n';
+
+	if (FindClientByAccountNumber(AccountNumber,vClients,Client)) {
+
+		
+		cout << "The following are the client details : \n\n";
+
+		PrintClientData(Client);
+
+		cout << "\n\nAre you sure you want to update this client? y/n?   ";
+		cin >> Answer;
+
+		if (toupper(Answer) == 'Y') {
+
+			ChangeClientData(Client);
+			
+			UpdateVectorWithNewClientInformation(AccountNumber, vClients, Client);
+
+			SaveClientsToFile(FileName, vClients);
+
+			// Update vector with new Updates 
+
+			vClients = SaveClientsToVector(FileName);
+
+		}
+
+		cout << "\n\n Client Updated Successfully. \n";
+		return true;
+
+
+
+	}
+	else {
+
+		cout << "\n\n Client with Account Number (" << AccountNumber << ") NOT found! \n";
+		return false;
+	}
+
+}
 
 
 
@@ -248,7 +354,9 @@ int main()
 	string AccountNumber = ReadClientAccountNumber();
 
 
-	DeleteClientByAccountNumber(AccountNumber, vClients);
+	//DeleteClientByAccountNumber(AccountNumber, vClients);
+
+
 
 
 	cout << "\n\n\n************************************************************************\n\n\n";
@@ -257,7 +365,7 @@ int main()
 	// Problem 51
 
 
-
+	UpdateClientDataByAccountNumber(AccountNumber, vClients);
 
 
 
