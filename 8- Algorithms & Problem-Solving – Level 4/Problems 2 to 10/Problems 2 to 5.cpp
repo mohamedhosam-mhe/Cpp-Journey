@@ -169,7 +169,7 @@ int NumberOfDaysInMonthShortLogic(short Year, short Month) {
         return 0;
     }
 
-    int arrOfDaysInMonths[12] = { 31,28,31,30,31,30,31,31,30,31,31 };
+    int arrOfDaysInMonths[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
 
     (Month == 2) ? LeapYear(Year) ? 29 : 28 : arrOfDaysInMonths[Month - 1];
 }
@@ -221,18 +221,105 @@ void PrintMonthCalender(short Year, short Month) {
     string arrMonth[12] = { "Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec" };
     string Days[7] = { "Sun","Mon","Tue","Wed","Thur","Fri" ,"Sat" };
 
-    short DayOrder = DayIndex(Year, Month, 1);
+    short DayOrderForCalender = DayIndex(Year, Month, 1); // Check day order 
+
+    short MonthDays = NumberOfDaysInMonthShortLogic(Year, Month);
 
     cout << "-----------------" << arrMonth[Month - 1] << "-----------------" << endl;
 
-    cout << setw(3) << "Sun" << setw(3) << "Mon" << setw(3) << "Tue" << setw(3) <<
-         "Wed" << setw(3) << "Thu" << setw(3) << "Fri" << setw(3) << "Sat";
+    cout << setw(5) << "Sun" << setw(5) << "Mon" << setw(5) << "Tue" << setw(5) <<
+         "Wed" << setw(5) << "Thu" << setw(5) << "Fri" << setw(5) << "Sat" <<endl;
+
+    
+    short CurrentPos=0; // to check if our current position if we reach 7 we will make a new line
+
+    // pritn spaces before day 1 
+
+    for (int i = 0; i < DayOrderForCalender; i++) {
+
+        cout << setw(5) << " ";
+        CurrentPos++;
+    }
 
 
+    // Print all days of the month 
+
+    for (int day = 1; day <= MonthDays; day++) {
+
+        cout << setw(5) << day;
+        CurrentPos++;
+
+
+        // if we reach sat {make new line }
+
+        if (CurrentPos % 7 == 0) {
+
+            cout << endl;
+        }
+    }
+
+    cout << "\n-------------------------------------" << endl;
 
 }
 
 
+
+
+//Problem 9 [ Print all year calender ] 
+
+
+void PrintAllYearCalender(short Year) {
+
+
+    cout << "-------------------------------------" << endl;
+    cout << "              Calender " << Year << endl;
+    cout << "-------------------------------------" << endl;
+
+
+
+
+
+    for (int i = 1; i <= 12; i++) {
+
+        PrintMonthCalender(Year, i);
+
+        cout << endl;
+
+    }
+
+}
+
+
+
+
+// Problem 10 [ Day Index from the beginning of the year ] 
+
+
+
+short NumberOfDaysFromTheBeginningOfTheYear(short Year, short Month, short Day) {
+
+
+    // Count Previous Months days until reaching our month
+
+    short Counter = 0;
+    for (int i = 1; i < Month; i++) {
+
+        Counter += NumberOfDaysInMonthShortLogic(Year, i);
+
+    }
+
+   
+
+
+    // add number of days also on counter to get current day number 
+
+    Counter += Day;
+
+
+    return Counter;
+
+
+}
 
 
 
@@ -242,6 +329,10 @@ int main()
     
 
     // Problem 2 
+
+    system("cls");
+    cout << "\n\n-------------------Prolem 2 -----------------\n\n";
+
 
     int Year = ReadNumber("Enter Year to check ? ");
     if (LeapYearOneLineCode(Year)) {
@@ -255,15 +346,22 @@ int main()
 
 
     cout << "\n\n\n****************************************************\n\n\n";
+    
 
+    system("Pause"); // press enter to see next problem
 
     // Problem 3 
 
     // Same as 2 but with a littel adjustments 
+    system("cls");
+    cout << "\n\n-------------------Prolem 3 (Same As 2 ) -----------------\n\n";
 
 
-    
+    system("Pause"); // press enter to see next problem
+
     // Problem 4 
+    system("cls");
+    cout << "\n\n-------------------Prolem 4 -----------------\n\n";
 
 
     YearStatistics(Year);
@@ -282,8 +380,12 @@ int main()
     cout << "\n\n\n****************************************************\n\n\n";
 
 
+    system("Pause"); // press enter to see next problem
 
     // Problem 5 
+
+    system("cls");
+    cout << "\n\n-------------------Prolem 5 -----------------\n\n";
 
 
     short AnotherYear = ReadNumber("Please enter a year to check? ");
@@ -297,16 +399,26 @@ int main()
 
     cout << "\n\n\n****************************************************\n\n\n";
 
+
+    system("Pause"); // press enter to see next problem
+
     // Problem 6 
+
+    system("cls");
+    cout << "\n\n-------------------Prolem 6 -----------------\n\n";
+
 
     cout << "Number of Days in Month short logic is [" << Month << "] is : " << NumberOfDaysInMonthShortLogic(AnotherYear, Month) << endl;
 
 
     cout << "\n\n\n****************************************************\n\n\n";
 
+    system("Pause"); // press enter to see next problem
 
     // Problem 7 
 
+    system("cls");
+    cout << "\n\n-------------------Prolem 7 -----------------\n\n";
 
 
     short DayNameYear, DayNameMonth, DayNameDay;
@@ -319,11 +431,56 @@ int main()
 
     cout << "\n\n\n****************************************************\n\n\n";
 
+    system("Pause"); // press enter to see next problem
+
+
 
     // Problem 8 
 
+    system("cls");
+    cout << "\n\n-------------------Prolem 8 -----------------\n\n";
 
-    PrintMonthCalender(Year, Month);
+
+    PrintMonthCalender(DayNameYear, DayNameMonth);
+
+
+
+    system("Pause"); // press enter to see next problem
+
+
+
+    // Problem 9 
+
+
+    system("cls");
+    cout << "\n\n-------------------Prolem 9 -----------------\n\n";
+
+
+    short AllYearCalender = ReadNumber("Please Enter A Year to Print its Calender? ");
+    PrintAllYearCalender(AllYearCalender);
+
+
+    system("Pause"); // press enter to see next problem
+
+
+    // Problem 10 
+
+    system("cls");
+    cout << "\n\n-------------------Prolem 10 -----------------\n\n";
+
+
+    short CDay, CMonth, CYear;
+
+    CDay = ReadNumber("Please Enter Day To Count?  ");
+    CMonth = ReadNumber("Please Enter Month?  ");
+    CYear = ReadNumber("Please Enter Year?  ");
+
+    short NumberOfDays = NumberOfDaysFromTheBeginningOfTheYear(CYear, CMonth, CDay);
+
+
+    cout << "Number of Days from the beginning of the year is : " << NumberOfDays << endl;
+
+
 
 
 
